@@ -127,6 +127,11 @@ public extension CatboxClient {
 public extension CatboxClient {
     
     func request(_ request: CatboxFilesUploadRequest) async throws -> [URL] {
+        
+        guard !request.files.isEmpty else {
+            throw CatboxAPIError.urlsNotFilesProvided
+        }
+        
         var urls = [URL]()
         
         for file in request.files {
@@ -156,6 +161,10 @@ public extension CatboxClient {
     
     func request(_ request: CatboxDeleteFilesRequest) async throws -> String {
         
+        guard !request.files.isEmpty else {
+            throw CatboxAPIError.filesNotFilesProvided
+        }
+        
         var form = MultipartFormData(url: Self.catboxApiEndpoint)
         form.addTextField(named: "reqtype", value: request.requestType)
         form.addTextField(named: "userhash", value: request.userhash)
@@ -170,6 +179,10 @@ public extension CatboxClient {
 public extension CatboxClient {
     
     func request(_ request: CatboxCreateAlbumRequest) async throws -> String {
+        
+        guard !request.files.isEmpty else {
+            throw CatboxAPIError.filesNotFilesProvided
+        }
         
         var form = MultipartFormData(url: Self.catboxApiEndpoint)
         form.addTextField(named: "reqtype", value: request.requestType)
@@ -187,6 +200,10 @@ public extension CatboxClient {
 public extension CatboxClient {
     
     func request(_ request: CatboxEditAlbumRequest) async throws -> String {
+        
+        guard !request.files.isEmpty else {
+            throw CatboxAPIError.filesNotFilesProvided
+        }
         
         var form = MultipartFormData(url: Self.catboxApiEndpoint)
         form.addTextField(named: "reqtype", value: request.requestType)
@@ -206,6 +223,10 @@ public extension CatboxClient {
     
     func request(_ request: CatboxAddToAlbumRequest) async throws -> String {
         
+        guard !request.files.isEmpty else {
+            throw CatboxAPIError.filesNotFilesProvided
+        }
+        
         var form = MultipartFormData(url: Self.catboxApiEndpoint)
         form.addTextField(named: "reqtype", value: request.requestType)
         form.addTextField(named: "userhash", value: request.userhash)
@@ -221,6 +242,10 @@ public extension CatboxClient {
 public extension CatboxClient {
     
     func request(_ request: CatboxRemoveFromAlbumRequest) async throws -> String {
+        
+        guard !request.files.isEmpty else {
+            throw CatboxAPIError.filesNotFilesProvided
+        }
         
         var form = MultipartFormData(url: Self.catboxApiEndpoint)
         form.addTextField(named: "reqtype", value: request.requestType)
@@ -251,6 +276,11 @@ public extension CatboxClient {
 public extension CatboxClient {
     
     func request(_ request: CatboxUploadAndCreateAlbum) async throws -> URL {
+        
+        guard !request.files.isEmpty else {
+            throw CatboxAPIError.urlsNotFilesProvided
+        }
+        
         var urls = [URL]()
         
         for file in request.files {
