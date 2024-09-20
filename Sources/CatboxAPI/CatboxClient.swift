@@ -164,3 +164,119 @@ public extension CatboxClient {
         return try await handleRequest(form.urlRequest)
     }
 }
+
+
+// MARK: - Client Create Album
+public extension CatboxClient {
+    
+    func request(_ request: CatboxCreateAlbumRequest) async throws -> String {
+        
+        var form = MultipartFormData(url: Self.catboxApiEndpoint)
+        form.addTextField(named: "reqtype", value: request.requestType)
+        form.addTextField(named: "userhash", value: request.userhash ?? "")
+        form.addTextField(named: "title", value: request.title)
+        form.addTextField(named: "desc", value: request.description)
+        form.addTextField(named: "files", value: request.files.joined(separator: " "))
+        
+        return try await handleRequest(form.urlRequest)
+    }
+}
+
+
+// MARK: - Client Edit Album
+public extension CatboxClient {
+    
+    func request(_ request: CatboxEditAlbumRequest) async throws -> String {
+        
+        var form = MultipartFormData(url: Self.catboxApiEndpoint)
+        form.addTextField(named: "reqtype", value: request.requestType)
+        form.addTextField(named: "userhash", value: request.userhash)
+        form.addTextField(named: "short", value: request.album)
+        form.addTextField(named: "title", value: request.title)
+        form.addTextField(named: "desc", value: request.description)
+        form.addTextField(named: "files", value: request.files.joined(separator: " "))
+        
+        return try await handleRequest(form.urlRequest)
+    }
+}
+
+
+// MARK: - Client Add To Album
+public extension CatboxClient {
+    
+    func request(_ request: CatboxAddToAlbumRequest) async throws -> String {
+        
+        var form = MultipartFormData(url: Self.catboxApiEndpoint)
+        form.addTextField(named: "reqtype", value: request.requestType)
+        form.addTextField(named: "userhash", value: request.userhash)
+        form.addTextField(named: "short", value: request.album)
+        form.addTextField(named: "files", value: request.files.joined(separator: " "))
+        
+        return try await handleRequest(form.urlRequest)
+    }
+}
+
+
+// MARK: - Client Remove From Album
+public extension CatboxClient {
+    
+    func request(_ request: CatboxRemoveFromAlbumRequest) async throws -> String {
+        
+        var form = MultipartFormData(url: Self.catboxApiEndpoint)
+        form.addTextField(named: "reqtype", value: request.requestType)
+        form.addTextField(named: "userhash", value: request.userhash)
+        form.addTextField(named: "short", value: request.album)
+        form.addTextField(named: "files", value: request.files.joined(separator: " "))
+        
+        return try await handleRequest(form.urlRequest)
+    }
+}
+
+
+// MARK: - Client Delete Album
+public extension CatboxClient {
+    
+    func request(_ request: CatboxDeleteAlbumRequest) async throws -> String {
+        
+        var form = MultipartFormData(url: Self.catboxApiEndpoint)
+        form.addTextField(named: "reqtype", value: request.requestType)
+        form.addTextField(named: "userhash", value: request.userhash)
+        form.addTextField(named: "short", value: request.album)
+        
+        return try await handleRequest(form.urlRequest)
+    }
+}
+
+// MARK: - Client Upload And Create Album
+public extension CatboxClient {
+    
+    func request(_ request: CatboxUploadAndCreateAlbum) async throws -> URL {
+        var urls = [URL]()
+        
+        for file in request.files {
+            if file.isFileURL {
+                let form = CatboxLocalURLUploadRequest(
+                    userhash: request.userhash,
+                    url: file
+                )
+                let url = try await self.request(form)
+                urls.append(url)
+            } else {
+                let form = CatboxURLUploadRequest(
+                    userhash: request.userhash,
+                    url: file)
+                let url = try await self.request(form)
+                urls.append(url)
+            }
+        }
+        
+        let files = urls.map({ $0.lastPathComponent })
+        
+        var form = MultipartFormData(url: Self.catboxApiEndpoint)
+        form.addTextField(named: "reqtype", value: request.requestType)
+        form.addTextField(named: "userhash", value: request.userhash ?? "")
+        form.addTextField(named: "files", value: files.joined(separator: " "))
+        
+        return try await handleRequest(form.urlRequest)
+    }
+}

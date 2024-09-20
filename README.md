@@ -8,7 +8,9 @@ Catbox-Swift is a library for uploading files to the [CatBox.moe](https://catbox
 * Upload single or multiple files from remote URLs
 * Upload files from their `Data` representation
 * Delete files from the website
-* Album managment not implemented yet
+* Create albums
+* Edit albums
+* Delete albums
 
 ## Usage
 
@@ -41,4 +43,10 @@ let response: String = try await CatboxClient.sharedClient.request(deleteRequest
 * `CatboxFileDataUploadRequest`
 * `CatboxLocalURLUploadRequest`
 * `CatboxURLUploadRequest`
+* `CatboxCreateAlbumRequest`
+* `CatboxEditAlbumRequest`
+* `CatboxAddToAlbumRequest`
+* `CatboxRemoveFromAlbumRequest`
+* `CatboxDeleteAlbumRequest`
+* `CatboxUploadAndCreateAlbum`
 
