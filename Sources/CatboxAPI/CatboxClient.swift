@@ -75,7 +75,7 @@ public struct CatboxClient {
 // MARK: - Client File Upload
 public extension CatboxClient {
     
-    func request(_ request: CatboxFileUploadRequest) async throws -> URL {
+    func request(_ request: CatboxFileDataUploadRequest) async throws -> URL {
         
         var form = MultipartFormData(url: Self.catboxApiEndpoint)
         form.addTextField(named: "reqtype", value: request.requestType)

@@ -38,7 +38,7 @@ let response: String = try await CatboxClient.sharedClient.request(deleteRequest
 
 * `CatboxDeleteFilesRequest`
 * `CatboxFilesUploadRequest`
-* `CatboxFileUploadRequest`
+* `CatboxFileDataUploadRequest`
 * `CatboxLocalURLUploadRequest`
 * `CatboxURLUploadRequest`
 
