@@ -18,7 +18,7 @@ Catbox-Swift is a library for uploading files to the [CatBox.moe](https://catbox
 
 ```swift
 let imageUrl1 = URL(fileURLWithPath: "/path/to/my/local/file.jpeg")!
-let imageUrl1 = URL(string: "https://example.xyz/path/to/my/remote/file.jpeg")!
+let imageUrl2 = URL(string: "https://example.xyz/path/to/my/remote/file.jpeg")!
 let uploadRequest = CatboxFilesUploadRequest(
     userhash: "###", // optional userhash, if left nil, the files will be uploaded anonymously
     files: [ imageUrl1, imageUrl2 ]
